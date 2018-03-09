@@ -1,0 +1,18 @@
+<tabs>
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/ic_home_3"
+        title="Trang chủ" />
+    <tab
+        id="@+id/tab_notification"
+        icon="@drawable/ic_notification_3"
+        title="Thông báo" />
+    <tab
+        id="@+id/tab_account"
+        icon="@drawable/ic_user_2"
+        title="Tài khoản" />
+    <tab
+        id="@+id/tab_menu"
+        icon="@drawable/ic_menu"
+        title="Menu" />
+</tabs>
