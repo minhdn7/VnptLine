@@ -101,7 +101,7 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
     private List<ListRoomBookingResponse> danhSachPhongResponses = new ArrayList<>();
     boolean isXemChiTietClicked = false;
     private Integer idNhaNghi = 0;
-    private String sPriceNightHotel = "";
+    private String sPriceHourHotel = "";
     private AlertDialog dialogBooking;
     private List<RoomHightLight> danhSachPhongNoiBat = new ArrayList<>();
     LinearLayoutManager HorizontalLayout;
@@ -192,7 +192,7 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             idNhaNghi = extras.getInt("ID_HOTEL");
-            sPriceNightHotel = extras.getString("PRICE_NIGHT_HOTEL");
+            sPriceHourHotel = extras.getString("PRICE_HOUR_HOTEL");
             detailHotelPresenter.getHotel(AppDef.TOKEN_DEV, idNhaNghi);
             roomHotelPresenter.getRoom(AppDef.TOKEN_DEV, idNhaNghi);
             showProgressBar();
@@ -252,7 +252,7 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
             txtDiaChiNhaNghi.setText(response.getCity());
             txtMieuTaChiTiet.setText(response.getDescription());
             simpleRatingBar.setRating(response.getRank());
-            txtGiaPhongMoiDem.setText(sPriceNightHotel);
+            txtGiaPhongMoiDem.setText(sPriceHourHotel);
         } catch (Exception e) {
             e.printStackTrace();
         }

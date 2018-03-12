@@ -25,4 +25,5 @@ public class ConfigNotification {
     public static final String NOTIFICATION_TITLE = "title";
     public static final String NOTIFICATION_INDEX = "index";
     public static final String NOTIFICATION_MESAGE = "message";
+    public static final String NOTIFICATION_APP = "app";
 }

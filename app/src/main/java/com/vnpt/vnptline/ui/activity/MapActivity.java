@@ -74,7 +74,10 @@ import com.vnpt.vnptline.domain.repository.MapDemoActivityPermissionsDispatcher;
 import com.vnpt.vnptline.domain.model.pojo.response.GeoSearchResult;
 import com.vnpt.vnptline.ui.adapter.DanhSachNhaNghiAdapter;
 import com.vnpt.vnptline.ui.adapter.GeoAutoCompleteAdapter;
+import com.vnpt.vnptline.ui.event.DanhSachNhaNghiEvent;
 import com.vnpt.vnptline.ui.widget.DelayAutoCompleteTextView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -105,7 +108,7 @@ public class MapActivity extends BaseActivity
     private long UPDATE_INTERVAL = 60000;  /* 60 secs */
     private long FASTEST_INTERVAL = 5000; /* 5 secs */
     private final static String KEY_LOCATION = "location";
-    private int cameraZoomTo = 12;
+    private int cameraZoomTo = 13;
     private float minValues = 0;
     private float maxValues = 1000000;
     protected LocationManager locationManager;
@@ -121,7 +124,7 @@ public class MapActivity extends BaseActivity
     private LatLng searchLocationLatLong = null;
     private DanhSachNhaNghiAdapter danhSachNhaNghiAdapter;
     private Integer idNhaNGhi = 0;
-    private String sPriceNightHotel = "";
+    private String sPriceHourHotel = "";
 
 
     // get tọa độ
@@ -189,8 +192,8 @@ public class MapActivity extends BaseActivity
                 idNhaNGhi = danhSachNhaNghiResponse.get(mHashMap.get(marker)).getHotelId();
 //                Integer iDistance = danhSachNhaNghiResponse.get(mHashMap.get(marker)).getDistance();
                 String sDistance = String.valueOf((long) danhSachNhaNghiResponse.get(mHashMap.get(marker)).getDistance()) + "m" + " tính từ vị trí hiện tại";
-                String sGiaPhong = String.format("%,d", danhSachNhaNghiResponse.get(mHashMap.get(marker)).getPriceNight()) + " VND";
-                sPriceNightHotel = String.format("%,d",danhSachNhaNghiResponse.get(mHashMap.get(marker)).getPriceNight()) + " VND";
+                String sGiaPhong = String.format("%,d", danhSachNhaNghiResponse.get(mHashMap.get(marker)).getPriceHour()) + " VND" + "/Giờ";
+                sPriceHourHotel = sGiaPhong;
                 dialogThongTinNhaNghi(danhSachNhaNghiResponse.get(mHashMap.get(marker)).getHotelName(),
                                     sDistance, sGiaPhong,
                                     danhSachNhaNghiResponse.get(mHashMap.get(marker)).getDescription(),
@@ -251,16 +254,21 @@ public class MapActivity extends BaseActivity
             Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
 
-        danhSachNhaNghiResponse = (List<HotelResponse>) getIntent().getSerializableExtra("DANH_SACH_HOTEL");
-        danhSachNhaNghiAdapter = new DanhSachNhaNghiAdapter(this, R.layout.item_danh_sach_nha_nghi, danhSachNhaNghiResponse);
-        lvDanhSachNhaNghi.setAdapter(danhSachNhaNghiAdapter);
+//        danhSachNhaNghiResponse = (List<HotelResponse>) getIntent().getSerializableExtra("DANH_SACH_HOTEL");
+        try {
+            danhSachNhaNghiResponse = EventBus.getDefault().getStickyEvent(DanhSachNhaNghiEvent.class).getListHotelResponse();
+            danhSachNhaNghiAdapter = new DanhSachNhaNghiAdapter(this, R.layout.item_danh_sach_nha_nghi, danhSachNhaNghiResponse);
+            lvDanhSachNhaNghi.setAdapter(danhSachNhaNghiAdapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         lvDanhSachNhaNghi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MapActivity.this, DetailActivity.class);
                 intent.putExtra("ID_HOTEL", danhSachNhaNghiResponse.get(position).getHotelId());
-                sPriceNightHotel = danhSachNhaNghiResponse.get(position).getPriceNight() + " VND";
-                intent.putExtra("PRICE_NIGHT_HOTEL", sPriceNightHotel);
+                sPriceHourHotel = danhSachNhaNghiResponse.get(position).getPriceHour() + " VND" + "/Giờ";
+                intent.putExtra("PRICE_HOUR_HOTEL", sPriceHourHotel);
                 startActivity(intent);
             }
         });
@@ -305,8 +313,8 @@ public class MapActivity extends BaseActivity
             }
 
 
-            map.moveCamera(center);
-            map.animateCamera(zoom);
+//            map.moveCamera(center);
+//            map.animateCamera(zoom);
             // end
         } else {
             Toast.makeText(this, "Error - Map was null!!", Toast.LENGTH_SHORT).show();
@@ -430,7 +438,8 @@ public class MapActivity extends BaseActivity
 
         mCurrentLocation = location;
 
-        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
+//        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
+        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude));
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(cameraZoomTo);
         map.moveCamera(center);
         map.animateCamera(zoom);
@@ -652,129 +661,6 @@ public class MapActivity extends BaseActivity
                 });
             }
         });
-        ranglelideBar = (RangeSeekBar) dialog.findViewById(R.id.ranglelideBar);
-        txtGiaMin = (TextView) dialog.findViewById(R.id.txtGiaMin);
-        txtGiaMax = (TextView) dialog.findViewById(R.id.txtGiaMax);
-        LinearLayout viewWifi = (LinearLayout) dialog.findViewById(R.id.viewWifi);
-        LinearLayout viewDoUong = (LinearLayout) dialog.findViewById(R.id.viewDoUong);
-        LinearLayout viewMassage = (LinearLayout) dialog.findViewById(R.id.viewMassage);
-        LinearLayout viewDieuHoa = (LinearLayout) dialog.findViewById(R.id.viewDieuHoa);
-        LinearLayout viewTuLanh = (LinearLayout) dialog.findViewById(R.id.viewTuLanh);
-        LinearLayout viewGiuongDoi = (LinearLayout) dialog.findViewById(R.id.viewGiuongDoi);
-        final ImageView imgWifi = (ImageView) dialog.findViewById(R.id.imgWifi);
-        final ImageView imgDoUong = (ImageView) dialog.findViewById(R.id.imgDoUong);
-        final ImageView imgMassage = (ImageView) dialog.findViewById(R.id.imgMassage);
-        final ImageView imgDieuHoa = (ImageView) dialog.findViewById(R.id.imgDieuHoa);
-        final ImageView imgTuLanh = (ImageView) dialog.findViewById(R.id.imgTuLanh);
-        final ImageView imgGiuongDoi = (ImageView) dialog.findViewById(R.id.imgGiuongDoi);
-        // setup trạng thái
-        isWifi = false;
-        isFood = false;
-        isMasage = false;
-        isAirCoditioning = false;
-        isFridge = false;
-        isDuobleBed = false;
-        // end
-
-        viewWifi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isWifi){
-                    imgWifi.setImageResource(R.drawable.ic_wifi);
-                }else {
-                    imgWifi.setImageResource(R.drawable.ic_wifi_off);
-                }
-                isWifi = !isWifi;
-            }
-        });
-
-        viewDieuHoa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isAirCoditioning){
-                    imgDieuHoa.setImageResource(R.drawable.ic_ac);
-                }else {
-                    imgDieuHoa.setImageResource(R.drawable.ic_ac_disabled);
-                }
-                isAirCoditioning = !isAirCoditioning;
-            }
-        });
-
-        viewDoUong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isFood){
-                    imgDoUong.setImageResource(R.drawable.ic_food_on);
-                }else {
-                    imgDoUong.setImageResource(R.drawable.ic_food_off_2);
-                }
-                isFood = !isFood;
-            }
-        });
-
-        viewTuLanh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isAirCoditioning){
-                    imgTuLanh.setImageResource(R.drawable.ic_fridge_on);
-                }else {
-                    imgTuLanh.setImageResource(R.drawable.ic_fridge_off);
-                }
-                isAirCoditioning = !isAirCoditioning;
-            }
-        });
-
-        viewMassage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isMasage){
-                    imgMassage.setImageResource(R.drawable.ic_massage_on);
-                }else {
-                    imgMassage.setImageResource(R.drawable.ic_massage_off);
-                }
-                isMasage = !isMasage;
-            }
-        });
-
-        viewGiuongDoi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isDuobleBed){
-                    imgGiuongDoi.setImageResource(R.drawable.ic_double_bed_on);
-                }else {
-                    imgGiuongDoi.setImageResource(R.drawable.ic_double_bed_off);
-                }
-                isDuobleBed = !isDuobleBed;
-            }
-        });
-
-
-        ranglelideBar.setOnRangeChangedListener(new RangeSeekBar.OnRangeChangedListener() {
-            @Override
-            public void onRangeChanged(RangeSeekBar view, float min, float max, boolean isFromUser) {
-                ranglelideBar.setRules(minValues, maxValues, 0, 1);
-
-                long dMin = ((long) min/10000) * 10000;
-                long dMax = ((long) max/10000) * 10000;
-                DecimalFormat formatter = new DecimalFormat("#,###,###");
-                String formatMin = formatter.format(dMin);
-                String formatMax = formatter.format(dMax);
-                String giaMin = "VND " + formatMin;
-                String giaMax = "VND " + formatMax;
-                txtGiaMin.setText(giaMin);
-                txtGiaMax.setText(giaMax);
-            }
-
-            @Override
-            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
-
-            }
-        });
-        // end
 
 
     }
@@ -854,7 +740,7 @@ public class MapActivity extends BaseActivity
             public void onClick(View v) {
                 Intent intent = new Intent(MapActivity.this, DetailActivity.class);
                 intent.putExtra("ID_HOTEL", idNhaNGhi);
-                intent.putExtra("PRICE_NIGHT_HOTEL", sPriceNightHotel);
+                intent.putExtra("PRICE_HOUR_HOTEL", sPriceHourHotel);
                 startActivity(intent);
             }
         });

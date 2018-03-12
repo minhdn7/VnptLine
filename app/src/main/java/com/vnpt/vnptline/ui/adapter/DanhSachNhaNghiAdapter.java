@@ -58,7 +58,7 @@ public class DanhSachNhaNghiAdapter extends ArrayAdapter<HotelResponse> {
 //            String sDistance = String.valueOf(getItem(position).getDistance().intValue()) + "m" + " tính từ vị trí hiện tại";
             String sDistance = String.valueOf((long) getItem(position).getDistance()) + "m" + " tính từ vị trí hiện tại";
             Locale.setDefault(Locale.US);
-            String sGiaPhong = String.format("%,d",getItem(position).getPriceNight()) + " VND";
+            String sGiaPhong = String.format("%,d",getItem(position).getPriceHour()) + " VND" + "/Giờ";
             holder.txtGiaPhong.setText(sGiaPhong);
             holder.txtDistance.setText(sDistance);
         } catch (Exception e) {

@@ -51,9 +51,12 @@ import com.vnpt.vnptline.domain.model.pojo.response.GeoSearchResult;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.DanhSachNhaNghiResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.HotelResponse;
 import com.vnpt.vnptline.ui.adapter.GeoAutoCompleteAdapter;
+import com.vnpt.vnptline.ui.event.DanhSachNhaNghiEvent;
 import com.vnpt.vnptline.ui.presenter.hotel.SearchHotelPresenter;
 import com.vnpt.vnptline.ui.view.hotel.SearchHotelView;
 import com.vnpt.vnptline.ui.widget.DelayAutoCompleteTextView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -358,7 +361,9 @@ public class TimNhaNghiActivity extends BaseActivity implements SearchHotelView,
             try {
                 intent.putExtra("LATITUDE", latitude);
                 intent.putExtra("LONGITUDE", longitude);
-                intent.putExtra("DANH_SACH_HOTEL", (Serializable) danhSachNhaNghi);
+                DanhSachNhaNghiEvent danhSachNhaNghiEvent = new DanhSachNhaNghiEvent(danhSachNhaNghi);
+                EventBus.getDefault().postSticky(danhSachNhaNghiEvent);
+//                intent.putExtra("DANH_SACH_HOTEL", (Serializable) danhSachNhaNghi);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -553,6 +558,7 @@ public class TimNhaNghiActivity extends BaseActivity implements SearchHotelView,
                 latitude = result.getLocation().getLatitude();
                 longitude = result.getLocation().getLongitude();
                 txtLocationAddress.setText(result.getAddress());
+                hideVirtualKeyboard();
             }
         });
     }

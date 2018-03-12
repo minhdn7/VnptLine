@@ -79,7 +79,7 @@ public class RoomAvailableResponse {
     @SerializedName("priceHour")
     @Expose
     @Setter @Getter
-    public double priceHour;
+    public Integer priceHour;
 
     @SerializedName("promotionPriceHour")
     @Expose

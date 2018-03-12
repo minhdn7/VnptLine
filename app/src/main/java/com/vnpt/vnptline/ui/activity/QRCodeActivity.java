@@ -16,6 +16,8 @@ import com.vnpt.vnptline.R;
 import com.vnpt.vnptline.app.BaseActivity;
 import com.vnpt.vnptline.domain.model.pojo.response.user.QRCodeDataResponse;
 
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,7 +28,7 @@ public class QRCodeActivity extends BaseActivity {
     @BindView(R.id.txtHotelName) TextView txtHotelName;
     @BindView(R.id.txtRoomType) TextView txtRoomType;
     @BindView(R.id.txtBookingDate) TextView txtBookingDate;
-
+    private String jsonNotificationData = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,29 +42,44 @@ public class QRCodeActivity extends BaseActivity {
     private void addControl() {
 
         try {
+
             Gson gson = new Gson();
             String sData = getIntent().getStringExtra("QR_CODE_DATA");
+            if(sData != null){
+                QRCodeDataResponse qrCodeDataResponse = gson.fromJson(sData, QRCodeDataResponse.class);
+                txtMaQR.setText(qrCodeDataResponse.getQrNumber());
+                byte[] decodedString = Base64.decode(qrCodeDataResponse.getQrCode(), Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                imgMaQR.setImageBitmap(decodedByte);
+                try {
+                    txtHotelName.setText(qrCodeDataResponse.getHotelName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    txtRoomType.setText(qrCodeDataResponse.getType());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    txtBookingDate.setText(qrCodeDataResponse.getBookingDate());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else {
+                jsonNotificationData = getIntent().getStringExtra("JSON_BOOKING_DATA");
+                if(!jsonNotificationData.equals("")){
+                    JSONObject json = new JSONObject(jsonNotificationData);
+                    txtMaQR.setText(json.getString("qrNumber"));
+                    byte[] decodedString = Base64.decode(json.getString("qrCode"), Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    imgMaQR.setImageBitmap(decodedByte);
+                    txtHotelName.setText(json.getString("hotelName"));
+                    txtRoomType.setText(json.getString("roomType"));
+                    txtBookingDate.setText(json.getString("bookingDate"));
+                }
+            }
 
-            QRCodeDataResponse qrCodeDataResponse = gson.fromJson(sData, QRCodeDataResponse.class);
-            txtMaQR.setText(qrCodeDataResponse.getQrNumber());
-            byte[] decodedString = Base64.decode(qrCodeDataResponse.getQrCode(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            imgMaQR.setImageBitmap(decodedByte);
-            try {
-                txtHotelName.setText(qrCodeDataResponse.getHotelName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                txtRoomType.setText(qrCodeDataResponse.getType());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                txtBookingDate.setText(qrCodeDataResponse.getBookingDate());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             // convert
         } catch (Throwable tx) {
             Toast.makeText(this, tx.toString(), Toast.LENGTH_LONG).show();

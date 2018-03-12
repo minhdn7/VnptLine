@@ -63,7 +63,7 @@ public class DanhSachPhongAdapter extends ArrayAdapter<RoomAvailableResponse> {
             String sSoKhach = getItem(position).getMaxPerson() + " " + getContext().getString(R.string.maxKhachPhong);
             holder.txtSoKhachPhong.setText(sSoKhach);
             Locale.setDefault(Locale.US);
-            String formattedNumber = String.format("%,d", getItem(position).getPriceHour()) + context.getString(R.string.donViTien);
+            String formattedNumber = String.format("%,d", getItem(position).getPriceHour()) + context.getString(R.string.donViTien) + "/Giờ";
             holder.txtGiaPhong.setText(formattedNumber);
             holder.txtMieuTaPhong.setText(getItem(position).getDescription());
 

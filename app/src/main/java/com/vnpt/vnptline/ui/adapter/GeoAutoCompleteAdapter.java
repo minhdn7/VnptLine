@@ -103,8 +103,8 @@ public class GeoAutoCompleteAdapter extends BaseAdapter implements Filterable {
         List<Address> addresses = null;
 
         try {
-            // Getting a maximum of 15 Address that matches the input text
-            addresses = geocoder.getFromLocationName(query_text, 15);
+            // Getting a maximum of 10 Address that matches the input text
+            addresses = geocoder.getFromLocationName(query_text, MAX_RESULTS);
 
             for(int i=0;i<addresses.size();i++){
                 Address address = (Address) addresses.get(i);

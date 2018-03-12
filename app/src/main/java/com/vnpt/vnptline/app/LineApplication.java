@@ -16,8 +16,8 @@ import lombok.Setter;
 public class LineApplication extends Application {
 
     @Getter private String baseUrl;
-//    public static final String apiBaseUrl = "http://10.145.40.188:8888/";
-    public static final String apiBaseUrl = "http://10.145.40.28/";
+    public static final String apiBaseUrl = "http://10.145.40.188:8888/";
+//    public static final String apiBaseUrl = "http://10.145.40.28/";
 //    public static final String apiBaseUrl = "http://172.20.10.2:8888/";
 //    public static final String apiBaseUrl = "http://10.145.40.74:8888/";
 

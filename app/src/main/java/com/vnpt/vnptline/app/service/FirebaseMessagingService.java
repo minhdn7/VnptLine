@@ -9,6 +9,7 @@ import android.util.Log;
 import com.google.firebase.messaging.RemoteMessage;
 import com.vnpt.vnptline.app.utils.ConfigNotification;
 import com.vnpt.vnptline.app.utils.NotificationUtils;
+import com.vnpt.vnptline.ui.activity.IntroActivity;
 import com.vnpt.vnptline.ui.activity.MainActivity;
 
 import org.json.JSONObject;
@@ -25,7 +26,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     private static final String TAG = "FirebaseMsgService";
     private NotificationUtils notificationUtils;
-
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -56,6 +56,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             Log.e(TAG, "Data Payload: " + remoteMessage.getData().toString());
             try {
                 json = new JSONObject(remoteMessage.getData());
+//                Intent intent = new Intent("NotificationIntent");
+//                intent.putStringArrayListExtra(ConfigNotification.NOTIFICATION_DATA, json.toString());
             } catch (Exception e) {
                 Log.e(TAG, "Exception: " + e.getMessage());
             }
@@ -72,12 +74,13 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         Log.e(TAG, "push json: " + json.toString());
         try {
             //String chat_id = json.getString("chat_id");
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
             Random rand = new Random();
             int notificationID = rand.nextInt(500) + 1;
             intent.putExtra(ConfigNotification.NOTIFICATION_DATA, json.toString());
             intent.putExtra(ConfigNotification.NOTIFICATION_TITLE, title);
             intent.putExtra(ConfigNotification.NOTIFICATION_MESAGE, message);
+            intent.putExtra(ConfigNotification.NOTIFICATION_APP, "true");
             showNotificationMessage(getApplicationContext(), title, message, new Date().toString(), intent, notificationID);
         } catch (Exception e) {
             Log.e(TAG, "Exception: " + e.getMessage());
@@ -88,7 +91,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         try {
             //String chat_id = json.getString("chat_id");
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
             Random rand = new Random();
             int notificationID = rand.nextInt(500) + 1;
             intent.putExtra(ConfigNotification.NOTIFICATION_TITLE, title);

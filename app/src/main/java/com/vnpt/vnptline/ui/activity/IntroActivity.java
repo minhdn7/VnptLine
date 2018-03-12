@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
@@ -21,13 +22,15 @@ import com.vnpt.vnptline.domain.repository.TinyDB;
 import com.vnpt.vnptline.ui.presenter.token.TokenDevPresenter;
 import com.vnpt.vnptline.ui.view.token.TokenDevView;
 
+import org.json.JSONObject;
+
 import javax.inject.Inject;
 
 public class IntroActivity extends AppIntro implements TokenDevView {
 
     @Inject
     TokenDevPresenter tokenDevPresenter;
-
+    String jsonData = "";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +67,20 @@ public class IntroActivity extends AppIntro implements TokenDevView {
                 sliderPage4.setBgColor(Color.CYAN);
                 addSlide(AppIntroFragment.newInstance(sliderPage4));
                 tinydb.putBoolean(SharePrefDefine.IS_INTRODUCE, false);
-            }else {
+            }else if(jsonData != null && !jsonData.equals("")){
+                JSONObject json = new JSONObject(jsonData);
+                if(json.getString("type").equals("Booking")){
+                    Intent intent = new Intent(getApplicationContext(), QRCodeActivity.class);
+                    intent.putExtra(ConfigNotification.NOTIFICATION_APP, "false");
+                    intent.putExtra("JSON_BOOKING_DATA", jsonData);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(this, HomeActivity.class);
+                    startActivity(intent);
+                }
+
+            } else {
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
             }
@@ -78,10 +94,10 @@ public class IntroActivity extends AppIntro implements TokenDevView {
     }
 
     private void handleNotification() {
-        String data = getIntent().getStringExtra(ConfigNotification.NOTIFICATION_DATA);
-        if(data != null){
-            Intent intent = new Intent(this, QRCodeActivity.class);
-            startActivity(intent);
+        try {
+            jsonData = getIntent().getStringExtra(ConfigNotification.NOTIFICATION_DATA);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
