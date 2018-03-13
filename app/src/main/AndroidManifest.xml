@@ -64,8 +64,8 @@
         <activity
             android:name=".ui.activity.TimNhaNghiActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/AppTheme.CustomActionBar" />
+            android:theme="@style/AppTheme.CustomActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.activity.UuDaiActivity"
             android:screenOrientation="portrait"
@@ -162,9 +162,17 @@
             </intent-filter>
         </activity>
         <!-- end -->
-        <activity android:name=".ui.activity.QRCodeActivity"
+        <activity
+            android:name=".ui.activity.QRCodeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomActionBar" />
+        <activity
+            android:name=".ui.activity.StartActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.activity.MapDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

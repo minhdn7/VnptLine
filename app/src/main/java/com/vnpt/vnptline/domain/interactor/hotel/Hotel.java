@@ -6,9 +6,11 @@ import com.vnpt.vnptline.domain.model.pojo.request.hotel.SearchHotelRequest;
 import retrofit2.Response;
 import rx.Observable;
 
+import com.vnpt.vnptline.domain.model.pojo.response.hotel.HotelHightLight;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.BookingRoomResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.ChiTietNhaNghiResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.DanhSachNhaNghiResponse;
+import com.vnpt.vnptline.domain.model.pojo.response.hotel.HotelHightLightResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.ListRoomBookingResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.service.FindRoomBookingResponse;
 
@@ -48,5 +50,10 @@ public interface Hotel {
      */
     Observable<Response<FindRoomBookingResponse>> findBookingRoom(String token, long userId);
 
+    /**
+     * @param token {@link String}
+     *
+     */
+    Observable<Response<HotelHightLightResponse>> findHotelAdvance(String token);
 
 }

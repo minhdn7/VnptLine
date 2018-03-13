@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.vnpt.vnptline.R;
 import com.vnpt.vnptline.app.BaseActivity;
@@ -64,10 +65,10 @@ public class RegisterActivity extends BaseActivity implements CheckUserView, OTP
         switch (view.getId()){
             case R.id.btnDangKy:
                 if(checkValidPhone()){
+                    showProgressBar();
                     checkUserPresenter.checkUser(AppDef.TOKEN_DEV, txtPhone.getText().toString());
 
                 }
-
                 break;
         }
     }
@@ -102,16 +103,19 @@ public class RegisterActivity extends BaseActivity implements CheckUserView, OTP
 
     @Override
     public void onCheckUserFailed(String message) {
+        hideProgressBar();
         dilogThongBao("Thông báo", message, getString(R.string.dong));
     }
 
     @Override
     public void onCheckUserError(Throwable e) {
-
+        hideProgressBar();
+        Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onOTPCodeSuccess(CommonResponse commonResponse) {
+        hideProgressBar();
         try {
             if(commonResponse.getResponseCode() == StatusCode.RESPONSE_SUCCESS){
                 Intent intent = new Intent(this, OTPActivity.class);
@@ -127,11 +131,13 @@ public class RegisterActivity extends BaseActivity implements CheckUserView, OTP
 
     @Override
     public void onOTPCodeFailed(String message) {
+        hideProgressBar();
         dilogThongBao("Thông báo", message, getString(R.string.dong));
     }
 
     @Override
     public void onOTPCoderError(Throwable e) {
-
+        hideProgressBar();
+        Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
     }
 }

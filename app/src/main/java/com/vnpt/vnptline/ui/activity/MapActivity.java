@@ -113,12 +113,7 @@ public class MapActivity extends BaseActivity
     private float maxValues = 1000000;
     protected LocationManager locationManager;
     private boolean isGPSEnabled = false;
-    private boolean isWifi = false;
-    private boolean isFood = false;
-    private boolean isMasage = false;
-    private boolean isAirCoditioning = false;
-    private boolean isFridge = false;
-    private boolean isDuobleBed = false;
+
     private HashMap<Marker, Integer> mHashMap = new HashMap<Marker, Integer>();
     private LatLng findLocation;
     private LatLng searchLocationLatLong = null;
@@ -172,7 +167,7 @@ public class MapActivity extends BaseActivity
         if(danhSachNhaNghiResponse != null && danhSachNhaNghiResponse.size() > 0){
             for(int i = 0; i < danhSachNhaNghiResponse.size(); i ++){
                 Locale.setDefault(Locale.US);
-                String formattedNumber = String.format("%,d", danhSachNhaNghiResponse.get(i).getPriceHour()) + " đ";
+                String formattedNumber = String.format("%,d", danhSachNhaNghiResponse.get(i).getPrice()) + " đ";
                 addMarker(formattedNumber,
                         "",
                         new LatLng(danhSachNhaNghiResponse.get(i).getLat(), danhSachNhaNghiResponse.get(i).getLon()),
@@ -192,7 +187,7 @@ public class MapActivity extends BaseActivity
                 idNhaNGhi = danhSachNhaNghiResponse.get(mHashMap.get(marker)).getHotelId();
 //                Integer iDistance = danhSachNhaNghiResponse.get(mHashMap.get(marker)).getDistance();
                 String sDistance = String.valueOf((long) danhSachNhaNghiResponse.get(mHashMap.get(marker)).getDistance()) + "m" + " tính từ vị trí hiện tại";
-                String sGiaPhong = String.format("%,d", danhSachNhaNghiResponse.get(mHashMap.get(marker)).getPriceHour()) + " VND" + "/Giờ";
+                String sGiaPhong = String.format("%,d", danhSachNhaNghiResponse.get(mHashMap.get(marker)).getPrice()) + " VND" + "/Giờ";
                 sPriceHourHotel = sGiaPhong;
                 dialogThongTinNhaNghi(danhSachNhaNghiResponse.get(mHashMap.get(marker)).getHotelName(),
                                     sDistance, sGiaPhong,
@@ -267,7 +262,7 @@ public class MapActivity extends BaseActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MapActivity.this, DetailActivity.class);
                 intent.putExtra("ID_HOTEL", danhSachNhaNghiResponse.get(position).getHotelId());
-                sPriceHourHotel = danhSachNhaNghiResponse.get(position).getPriceHour() + " VND" + "/Giờ";
+                sPriceHourHotel = danhSachNhaNghiResponse.get(position).getPrice() + " VND" + "/Giờ";
                 intent.putExtra("PRICE_HOUR_HOTEL", sPriceHourHotel);
                 startActivity(intent);
             }

@@ -11,6 +11,8 @@ import com.vnpt.vnptline.ui.presenter.hotel.DetailHotelPresenter;
 import com.vnpt.vnptline.ui.presenter.hotel.DetailHotelPresenterImpl;
 import com.vnpt.vnptline.ui.presenter.hotel.FindRoomBookingPresenter;
 import com.vnpt.vnptline.ui.presenter.hotel.FindRoomBookingPresenterImpl;
+import com.vnpt.vnptline.ui.presenter.hotel.HotelHighLightPresenter;
+import com.vnpt.vnptline.ui.presenter.hotel.HotelHighLightPresenterImpl;
 import com.vnpt.vnptline.ui.presenter.hotel.RoomHotelPresenter;
 import com.vnpt.vnptline.ui.presenter.hotel.RoomHotelPresenterImpl;
 import com.vnpt.vnptline.ui.presenter.hotel.SearchHotelPresenter;
@@ -62,6 +64,10 @@ public class HotelModule {
         return presenter;
     }
 
+    @Provides
+    HotelHighLightPresenter hotelHighLightPresenter(HotelHighLightPresenterImpl presenter) {
+        return presenter;
+    }
 
     @Provides
     Hotel providesHotel(HotelImpl hotel) {

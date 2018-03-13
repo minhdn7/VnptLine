@@ -4,7 +4,6 @@ import android.content.Context;
 import com.vnpt.vnptline.app.BaseActivity;
 import com.vnpt.vnptline.app.BaseFragment;
 import com.vnpt.vnptline.app.LineApplication;
-import com.vnpt.vnptline.domain.interactor.hotel.Hotel;
 import com.vnpt.vnptline.ui.activity.BinhLuanActivity;
 import com.vnpt.vnptline.ui.activity.ChangePasswordActivity;
 import com.vnpt.vnptline.ui.activity.ChiaSeActivity;
@@ -19,9 +18,11 @@ import com.vnpt.vnptline.ui.activity.LichSuActivity;
 import com.vnpt.vnptline.ui.activity.LoginActivity;
 import com.vnpt.vnptline.ui.activity.MainActivity;
 import com.vnpt.vnptline.ui.activity.MapActivity;
+import com.vnpt.vnptline.ui.activity.MapDetailActivity;
 import com.vnpt.vnptline.ui.activity.OTPActivity;
 import com.vnpt.vnptline.ui.activity.QRCodeActivity;
 import com.vnpt.vnptline.ui.activity.RegisterActivity;
+import com.vnpt.vnptline.ui.activity.StartActivity;
 import com.vnpt.vnptline.ui.activity.SubmitRegisterActivity;
 import com.vnpt.vnptline.ui.activity.SupportActivity;
 import com.vnpt.vnptline.ui.activity.TimNhaNghiActivity;
@@ -55,6 +56,8 @@ import javax.inject.Singleton;
         BaseFragment.class,
         //Activity
         DetailActivity.class,
+        StartActivity.class,
+        MapDetailActivity.class,
         ForgotPasswordActivity.class,
         HomeActivity.class,
         IntroActivity.class,

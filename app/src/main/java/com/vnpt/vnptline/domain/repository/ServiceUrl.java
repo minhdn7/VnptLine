@@ -24,6 +24,7 @@ public class ServiceUrl {
     public static final String SEARCH_HOTEL = "/vnptline/rest/hotel/search";
     public static final String LAY_DANH_SACH_TIEN_ICH = "/vnptline/rest/hotel/amenities/list";
     public static final String LAY_CHI_TIET_HOTEL = "/vnptline/rest/hotel/get";
+    public static final String LAY_HOTEL_NOI_BAT = "/vnptline/rest/hotel/adv";
     // end
 
     // room hotel

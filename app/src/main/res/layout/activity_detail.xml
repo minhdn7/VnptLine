@@ -72,6 +72,33 @@
                 android:layout_height="0.5dp"
                 android:layout_marginTop="4dp"
                 android:background="@color/md_grey_300"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="200dp">
+                <ImageView
+                    android:id="@+id/imgGoogleStaticMap"
+                    android:layout_width="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent" />
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/btnXemBanDo"
+                    android:text="@string/hienThiBanDo"
+                    android:textSize="10sp"
+                    android:textColor="@color/md_white"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/bg_button_grey_500" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/md_grey_300"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -233,7 +260,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:layout_marginTop="6dp"
-                android:text="@string/giaPhongMoiDem"/>
+                android:text="@string/giaPhongMoiGio"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

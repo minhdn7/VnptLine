@@ -88,17 +88,6 @@ public class HotelResponse implements Serializable {
     @Getter @Setter
     public String pictures;
 
-    @SerializedName("priceDay")
-    @Expose
-    @Getter @Setter
-    public Integer priceDay;
-
-    @SerializedName("priceHour")
-    @Expose
-    @Getter @Setter
-    public Integer priceHour;
-
-    @SerializedName("priceNight")
     @Getter @Setter
     public Integer priceNight;
 
@@ -107,26 +96,24 @@ public class HotelResponse implements Serializable {
     @Setter @Getter
     public String prioritySearch;
 
-    @SerializedName("promotionPriceDay")
-    @Expose
-    @Getter @Setter
-    public double promotionPriceDay;
-
-    @SerializedName("promotionPriceHour")
-    @Expose
-    @Getter @Setter
-    public double promotionPriceHour;
-
-    @SerializedName("promotionPriceNight")
-    @Expose
-    @Getter @Setter
-    public double promotionPriceNight;
-
     @SerializedName("rank")
     @Expose
+    @Getter @Setter
     public Integer rank;
 
     @SerializedName("rating")
     @Expose
+    @Getter @Setter
     public Integer rating;
+
+    @SerializedName("price")
+    @Expose
+    @Setter @Getter
+    public Integer price;
+
+    @SerializedName("promotion")
+    @Expose
+    @Setter @Getter
+    public Integer promotion;
+
 }

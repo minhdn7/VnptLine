@@ -3,21 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/viewDialogNhaNghi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         android:weightSum="10">
 
         <ImageView
+            android:id="@+id/imgNhaNghi"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:layout_marginLeft="10dp"
             android:layout_weight="4"
-            android:id="@+id/imgNhaNghi"
             android:scaleType="fitXY"
             android:src="@drawable/nha_nghi_1" />
 
@@ -37,6 +38,22 @@
                 android:textColor="@color/md_black"
                 android:textSize="16sp" />
 
+            <com.willy.ratingbar.ScaleRatingBar
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                app:srb_numStars="5"
+                app:srb_rating="4"
+                app:srb_starWidth="15dp"
+                app:srb_starHeight="15dp"
+                app:srb_starPadding="2dp"
+                app:srb_stepSize="0.5"
+                app:srb_isIndicator="true"
+                app:srb_scrollable="true"
+                app:srb_clickable="false"
+                app:srb_clearRatingEnabled="true"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -60,13 +77,13 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txtMieuTa"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="6dp"
                 android:layout_marginRight="10dp"
-                android:text="@string/chuaCoXepHang"
-                android:id="@+id/txtMieuTa"
                 android:singleLine="true"
+                android:text="@string/chuaCoXepHang"
                 android:textSize="12sp" />
 
             <RelativeLayout
@@ -90,10 +107,6 @@
                     android:textColor="@color/md_orange_800"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dem" />
             </LinearLayout>
 
         </LinearLayout>

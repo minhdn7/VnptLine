@@ -61,4 +61,9 @@ public class SearchHotelRequest {
     @Setter @Getter
     private Integer size;
 
+    @SerializedName("priceType")
+    @Expose
+    @Setter @Getter
+    private String priceType;
+
 }

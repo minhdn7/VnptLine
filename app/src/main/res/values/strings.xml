@@ -44,6 +44,7 @@
     <string name="bookingDate2">Ngày đặt:</string>
     <string name="nhaTro">Nhà trọ</string>
     <string name="khoangGiaPhong">Khoảng giá phòng mỗi đêm</string>
+    <string name="soLuongNhaNghi">hiển thị số lượng nhà nghỉ</string>
     <string name="hangDanhGia">Hạng đánh giá</string>
     <string name="hangSao">Hạng sao</string>
     <string name="tienNghi">Tiện nghi</string>
@@ -80,6 +81,7 @@
     <string name="thuGon">Thu gọn</string>
     <string name="timNhaNghi">Tìm nhà nghỉ</string>
     <string name="timNhaTro">Tìm nhà trọ</string>
+    <string name="timQuanMassa">Tìm quán Massage</string>
     <string name="uUdaiNoiBat">Ưu đãi nổi bật</string>
     <string name="trangChu">Trang chủ</string>
     <string name="caiDat">Cài đặt</string>
@@ -196,6 +198,7 @@
     <!--end-->
     <string name="xemChiTiet">Xem chi tiết</string>
     <string name="giaPhongMoiDem">Giá phòng mỗi đêm</string>
+    <string name="giaPhongMoiGio">Giá phòng mỗi giờ</string>
     <string name="chonPhong">Chọn phòng</string>
     <string name="chon">Chọn</string>
     <string name="maxKhachPhong">Khách/phòng</string>
@@ -221,4 +224,5 @@
         Bên cạnh đó, xung quanh Hồ còn có rất nhiều di tịch lịch sử nổi tiếng như: Cầu Thê Húc, Đền Ngọc Sơn, Tháp Bút, Đền bà Kiệu, Đền vua Lê Thái Tổ, Tháp Hoà Phong…..càng làm tăng thêm giá trị cổ kính của quần thể di tích Hồ Gươm. Khám phá quần thể di tích này giúp ta hiểu thêm về lịch sử xây dựng đất nước của dân tộc Việt Nam. Vào những ngày cuối tuần, khu vực quanh hồ biến thành tuyến phố đi bộ Hoàn Kiếm với nhiều hoạt động giải trí, trò chơi dân gian, biểu diễn nghệ thuật truyền thống vô cùng đặc sắc, chắc chắn là một điểm đến không thể bỏ lỡ của những du khách yêu thích khám phá văn hóa.
     </string>
     <string name="yKienCuaBan">Ý kiến của bạn:</string>
+    <string name="hienThiBanDo">Hiển thị bản đồ</string>
 </resources>

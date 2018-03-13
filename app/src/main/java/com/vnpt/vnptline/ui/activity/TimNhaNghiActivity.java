@@ -379,6 +379,7 @@ public class TimNhaNghiActivity extends BaseActivity implements SearchHotelView,
     @Override
     public void onSearchHotelFailed(String message) {
         hideProgressBar();
+        dilogThongBao(getString(R.string.thongBao), message, getString(R.string.dong));
     }
 
     @Override

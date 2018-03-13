@@ -2,24 +2,22 @@ package com.vnpt.vnptline.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.LayoutRes;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 import com.vnpt.vnptline.R;
-import com.vnpt.vnptline.domain.model.pojo.response.DanhSachNoiBatResponse;
+import com.vnpt.vnptline.domain.model.pojo.response.hotel.HotelHightLight;
 import com.vnpt.vnptline.ui.activity.DetailActivity;
-import com.vnpt.vnptline.ui.widget.RecyclerViewHolder;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,7 +27,7 @@ import java.util.List;
 public class DanhSachNoiBatAdapter
         extends RecyclerView.Adapter<DanhSachNoiBatAdapter.MyView> {
 
-    private List<DanhSachNoiBatResponse> danhSachNoiBatResponses;
+    private List<HotelHightLight> danhSachNoiBatResponses;
     private Context context;
     public class MyView extends RecyclerView.ViewHolder {
 
@@ -45,7 +43,7 @@ public class DanhSachNoiBatAdapter
     }
 
 
-    public DanhSachNoiBatAdapter(@NonNull Context context, List<DanhSachNoiBatResponse> horizontalList) {
+    public DanhSachNoiBatAdapter(@NonNull Context context, List<HotelHightLight> horizontalList) {
         this.danhSachNoiBatResponses = horizontalList;
         this.context = context;
     }
@@ -61,14 +59,36 @@ public class DanhSachNoiBatAdapter
     @Override
     public void onBindViewHolder(final MyView holder, final int position) {
             // set giá trị item ở đây
-            holder.imgNhaNghi.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                 context.startActivity(new Intent(context, DetailActivity.class));
-                }
-            });
-//        holder.textView.setText(danhSachNoiBatResponses.get(position).g);
+        holder.setIsRecyclable(false);
+        try {
+            holder.txtNhaNghi.setText(danhSachNoiBatResponses.get(position).getNameHotel());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        Picasso mPicasso = Picasso.with(context);
+        mPicasso.setIndicatorsEnabled(true);
+        mPicasso.load(danhSachNoiBatResponses.get(position).getPicture())
+                .fit()
+                .placeholder( R.drawable.progress_animation)
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .error(R.drawable.nha_nghi_11)
+                .into(holder.imgNhaNghi);
+
+//        Glide.with(context)
+//                .load(danhSachNoiBatResponses.get(position).getPicture())
+//                .error(R.drawable.nha_nghi_11)
+//                .placeholder( R.drawable.progress_animation)
+//                .into(holder.imgNhaNghi);
+
+        holder.imgNhaNghi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("ID_HOTEL", danhSachNoiBatResponses.get(position).getHotelId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.vnpt.vnptline.R;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.HotelResponse;
 import com.vnpt.vnptline.ui.activity.DatDoAnActivity;
+import com.willy.ratingbar.ScaleRatingBar;
 
 import java.util.List;
 import java.util.Locale;
@@ -58,9 +59,10 @@ public class DanhSachNhaNghiAdapter extends ArrayAdapter<HotelResponse> {
 //            String sDistance = String.valueOf(getItem(position).getDistance().intValue()) + "m" + " tính từ vị trí hiện tại";
             String sDistance = String.valueOf((long) getItem(position).getDistance()) + "m" + " tính từ vị trí hiện tại";
             Locale.setDefault(Locale.US);
-            String sGiaPhong = String.format("%,d",getItem(position).getPriceHour()) + " VND" + "/Giờ";
+            String sGiaPhong = String.format("%,d",getItem(position).getPrice()) + " VND" + "/Giờ";
             holder.txtGiaPhong.setText(sGiaPhong);
             holder.txtDistance.setText(sDistance);
+            holder.ratingBar.setRating(getItem(position).getRank());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,12 +73,13 @@ public class DanhSachNhaNghiAdapter extends ArrayAdapter<HotelResponse> {
         LinearLayout viewDialogNhaNghi;
         ImageView imgNhaNghi;
         TextView txtTenNhaNghi, txtDistance, txtMieuTa, txtGiaPhong;
-
+        ScaleRatingBar ratingBar;
         public ViewHolder(View view) {
             txtTenNhaNghi = (TextView) view.findViewById(R.id.txtTenNhaNghi);
             txtDistance = (TextView) view.findViewById(R.id.txtDistance);
             txtMieuTa = (TextView) view.findViewById(R.id.txtMieuTa);
             txtGiaPhong = (TextView) view.findViewById(R.id.txtGiaPhong);
+            ratingBar = (ScaleRatingBar) view.findViewById(R.id.ratingBar);
         }
 
 

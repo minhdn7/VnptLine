@@ -26,10 +26,8 @@ import org.json.JSONObject;
 
 import javax.inject.Inject;
 
-public class IntroActivity extends AppIntro implements TokenDevView {
+public class IntroActivity extends AppIntro {
 
-    @Inject
-    TokenDevPresenter tokenDevPresenter;
     String jsonData = "";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +36,8 @@ public class IntroActivity extends AppIntro implements TokenDevView {
         TinyDB tinydb = new TinyDB(this);
         handleNotification();
         try{
-            if(tinydb.getBoolean(SharePrefDefine.IS_INTRODUCE)){
+            boolean isIntroDuce = tinydb.getBoolean(SharePrefDefine.IS_INTRODUCE);
+            if(!isIntroDuce){
                 SliderPage sliderPage1 = new SliderPage();
                 sliderPage1.setTitle("Xin chào!");
                 sliderPage1.setDescription("Chúng tôi là Vnpt Software");
@@ -66,7 +65,8 @@ public class IntroActivity extends AppIntro implements TokenDevView {
                 sliderPage4.setImageDrawable(R.drawable.ic_slide4);
                 sliderPage4.setBgColor(Color.CYAN);
                 addSlide(AppIntroFragment.newInstance(sliderPage4));
-                tinydb.putBoolean(SharePrefDefine.IS_INTRODUCE, false);
+                tinydb.putBoolean(SharePrefDefine.IS_INTRODUCE, true);
+                return;
             }else if(jsonData != null && !jsonData.equals("")){
                 JSONObject json = new JSONObject(jsonData);
                 if(json.getString("type").equals("Booking")){
@@ -76,21 +76,18 @@ public class IntroActivity extends AppIntro implements TokenDevView {
                     startActivity(intent);
                     finish();
                 }else {
-                    Intent intent = new Intent(this, HomeActivity.class);
+                    Intent intent = new Intent(this, StartActivity.class);
                     startActivity(intent);
                 }
 
             } else {
-                Intent intent = new Intent(this, HomeActivity.class);
+                Intent intent = new Intent(this, StartActivity.class);
                 startActivity(intent);
             }
         }catch (Exception ex){
 
         }
 
-//        tokenDevPresenter.setView(this);
-//        tokenDevPresenter.onViewCreate();
-//        tokenDevPresenter.getTokenDev(AppDef.KEY_TOKEN_DEV);
     }
 
     private void handleNotification() {
@@ -105,7 +102,7 @@ public class IntroActivity extends AppIntro implements TokenDevView {
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
         // Do something when users tap on Skip button.
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
     }
 
@@ -113,7 +110,7 @@ public class IntroActivity extends AppIntro implements TokenDevView {
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
         // Do something when users tap on Done button.
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
     }
 
@@ -123,31 +120,8 @@ public class IntroActivity extends AppIntro implements TokenDevView {
         // Do something when the slide changes.
     }
 
-    @Override
-    public void onLoadTokenDev(String tokenDev) {
 
-    }
 
-    @Override
-    public void onTokenDevSuccess(TokenDevResponse tokenDevResponse) {
-        try {
-            if(tokenDevResponse.getResponseCode() == StatusCode.RESPONSE_SUCCESS){
-                AppDef.TOKEN_DEV = tokenDevResponse.getToken();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onTokenDevFailed(String message) {
-
-    }
-
-    @Override
-    public void onTokenDevError(Throwable e) {
-
-    }
 
 
 }

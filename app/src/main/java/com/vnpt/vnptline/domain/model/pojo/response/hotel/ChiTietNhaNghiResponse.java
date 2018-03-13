@@ -72,7 +72,28 @@ public class ChiTietNhaNghiResponse {
     public Integer responseCode;
 
     @SerializedName("responseMessage")
-    @Setter @Getter
     @Expose
+    @Setter @Getter
     public String responseMessage;
+
+    @SerializedName("lastUpdate")
+    @Expose
+    @Setter @Getter
+    public String lastUpdate;
+
+
+    @SerializedName("lat")
+    @Expose
+    @Setter @Getter
+    public Double lat;
+
+    @SerializedName("lon")
+    @Expose
+    @Setter @Getter
+    public Double lon;
+
+    @SerializedName("prioritySearch")
+    @Expose
+    @Setter @Getter
+    public String prioritySearch;
 }

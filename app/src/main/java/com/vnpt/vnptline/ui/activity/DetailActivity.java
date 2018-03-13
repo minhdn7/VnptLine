@@ -1,5 +1,6 @@
 package com.vnpt.vnptline.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -8,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,16 +26,15 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.vnpt.vnptline.R;
 import com.vnpt.vnptline.app.BaseActivity;
 import com.vnpt.vnptline.app.utils.AppDef;
 import com.vnpt.vnptline.domain.model.pojo.request.hotel.BookingRoomRequest;
-import com.vnpt.vnptline.domain.model.pojo.response.DanhSachNoiBatResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.BookingRoomResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.ChiTietNhaNghiResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.ListRoomBookingResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.RoomHightLight;
-import com.vnpt.vnptline.ui.adapter.DanhSachNoiBatAdapter;
 import com.vnpt.vnptline.ui.adapter.DanhSachPhongAdapter;
 import com.vnpt.vnptline.ui.adapter.PhongNoiBatAdapter;
 import com.vnpt.vnptline.ui.presenter.hotel.BookingRoomPresenter;
@@ -97,6 +98,11 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
     LinearLayout viewChonDanhSachPhong;
     @BindView(R.id.lvDanhSachPhongNoiBat)
     RecyclerView lvDanhSachPhongNoiBat;
+    @BindView(R.id.imgGoogleStaticMap)
+    ImageView imgGoogleStaticMap;
+    @BindView(R.id.btnXemBanDo)
+    Button btnXemBanDo;
+
     private DanhSachPhongAdapter danhSachPhongAdapter;
     private List<ListRoomBookingResponse> danhSachPhongResponses = new ArrayList<>();
     boolean isXemChiTietClicked = false;
@@ -106,6 +112,12 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
     private List<RoomHightLight> danhSachPhongNoiBat = new ArrayList<>();
     LinearLayoutManager HorizontalLayout;
     private PhongNoiBatAdapter phongNoiBatAdapter;
+    // get tọa độ
+    private double latitude = 0;
+    private double longitude = 0;
+    // set up map
+
+    // end
     @Inject
     DetailHotelPresenter detailHotelPresenter;
     @Inject
@@ -122,6 +134,7 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
         getSupportActionBar().hide();
         addControls();
         addEvents();
+        loadMapImage(this, 21.028511, 105.804817);
     }
 
 
@@ -179,6 +192,7 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
             }
         });
 
+
     }
 
     private void addControls() {
@@ -188,6 +202,7 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
         roomHotelPresenter.onViewCreate();
         bookingRoomPresenter.setView(this);
         bookingRoomPresenter.onViewCreate();
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -210,9 +225,12 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
         lvDanhSachPhongNoiBat.setAdapter(phongNoiBatAdapter);
     }
 
-    @OnClick({R.id.btnChon, R.id.viewBinhLuan, R.id.viewXemChiTiet, R.id.icBack})
+    @OnClick({R.id.btnChon, R.id.viewBinhLuan, R.id.viewXemChiTiet, R.id.icBack, R.id.btnXemBanDo})
     void submitButton(View view) {
         switch (view.getId()) {
+            case R.id.btnXemBanDo:
+
+                break;
             case R.id.btnChon:
                 scrollView.fullScroll(ScrollView.FOCUS_DOWN);
                 break;
@@ -242,7 +260,7 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
     }
 
     @Override
-    public void onDetailHotelSuccess(ChiTietNhaNghiResponse response) {
+    public void onDetailHotelSuccess(final ChiTietNhaNghiResponse response) {
         try {
             hideProgressBar();
             txtTenNhaNghi.setText(response.getHotelName());
@@ -253,6 +271,19 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
             txtMieuTaChiTiet.setText(response.getDescription());
             simpleRatingBar.setRating(response.getRank());
             txtGiaPhongMoiDem.setText(sPriceHourHotel);
+            latitude = response.getLat();
+            longitude = response.getLon();
+            loadMapImage(this, latitude, longitude);
+            btnXemBanDo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(DetailActivity.this, MapDetailActivity.class);
+                    intent.putExtra("LAT_POSITION", latitude);
+                    intent.putExtra("LONG_POSITION", longitude);
+                    intent.putExtra("NAME_HOTEL", txtTittleNhaNghi.getText().toString().trim());
+                    startActivity(intent);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -399,7 +430,24 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
         Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
     }
 
-    public void setTopImage(Integer imageResource){
+    public void setTopImage(Integer imageResource) {
         imgAnhDaiDien.setImageResource(imageResource);
+    }
+
+    private void loadMapImage(Context context, double latitude, double longitude) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("https://maps.googleapis.com/maps/api/staticmap?");
+        sb.append("&markers=color:%3agreen|");
+        sb.append(latitude);
+        sb.append(",");
+        sb.append(longitude);
+        sb.append("&zoom=12");
+        sb.append("&size=600x300");
+        sb.append("&key=AIzaSyAoDF0slrRXQUIuaI5GXG8E2xX1_xjAOgc&img.jpg");
+
+        Log.i("LOG", "Picasso loading: " + sb.toString());
+        Picasso.with(context)
+                .load(sb.toString())
+                .into(imgGoogleStaticMap);
     }
 }
