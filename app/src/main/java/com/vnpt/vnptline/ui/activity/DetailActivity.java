@@ -284,6 +284,16 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
                     startActivity(intent);
                 }
             });
+            imgGoogleStaticMap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(DetailActivity.this, MapDetailActivity.class);
+                    intent.putExtra("LAT_POSITION", latitude);
+                    intent.putExtra("LONG_POSITION", longitude);
+                    intent.putExtra("NAME_HOTEL", txtTittleNhaNghi.getText().toString().trim());
+                    startActivity(intent);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
