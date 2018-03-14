@@ -13,6 +13,7 @@ public class ServiceUrl {
     public static final String CHANGE_PASSWORD = "/vnptline/rest/user/password/change";
     public static final String FORGOT_PASSWORD = "/vnptline/rest/user/password/forgot";
     public static final String REGISTER_USER = "/vnptline/rest/user/registration";
+    public static final String LOGOUT_USER = "/vnptline/rest/customer/user/logout";
     // end
 
     // otp

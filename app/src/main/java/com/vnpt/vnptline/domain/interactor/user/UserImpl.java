@@ -5,6 +5,7 @@ import com.vnpt.vnptline.domain.model.pojo.request.user.DanhSachThongBaoRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.DetailHistoryRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.HistoryRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.LoginAccountRequest;
+import com.vnpt.vnptline.domain.model.pojo.request.user.LogoutRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.OTPRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.RegisterUserRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.VerifyOTPRequest;
@@ -77,5 +78,10 @@ public class UserImpl implements User {
     @Override
     public Observable<Response<DetailHistoryResponse>> getDetailHistory(String token, DetailHistoryRequest request) {
         return userApi.getDetailHistory(token, request);
+    }
+
+    @Override
+    public Observable<Response<CommonResponse>> logoutUser(String token, LogoutRequest request) {
+        return userApi.logout(token, request);
     }
 }

@@ -5,6 +5,7 @@ import com.vnpt.vnptline.domain.model.pojo.request.user.DanhSachThongBaoRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.DetailHistoryRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.HistoryRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.LoginAccountRequest;
+import com.vnpt.vnptline.domain.model.pojo.request.user.LogoutRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.OTPRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.RegisterUserRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.VerifyOTPRequest;
@@ -83,4 +84,10 @@ public interface User {
      * @param request {@link HistoryRequest}
      */
     Observable<Response<DetailHistoryResponse>> getDetailHistory(String token, DetailHistoryRequest request);
+
+    /**
+     * @param token {@link String}
+     * @param request {@link LogoutRequest}
+     */
+    Observable<Response<CommonResponse>> logoutUser(String token, LogoutRequest request);
 }

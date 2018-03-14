@@ -17,6 +17,8 @@ import com.vnpt.vnptline.ui.presenter.user.ForgotPasswordPresenter;
 import com.vnpt.vnptline.ui.presenter.user.ForgotPasswordPresenterImpl;
 import com.vnpt.vnptline.ui.presenter.user.HistoryPresenter;
 import com.vnpt.vnptline.ui.presenter.user.HistoryPresenterImpl;
+import com.vnpt.vnptline.ui.presenter.user.LogoutPresenter;
+import com.vnpt.vnptline.ui.presenter.user.LogoutPresenterImpl;
 import com.vnpt.vnptline.ui.presenter.user.NotificationPresenter;
 import com.vnpt.vnptline.ui.presenter.user.NotificationPresenterImpl;
 import com.vnpt.vnptline.ui.presenter.user.OTPCodePresenter;
@@ -93,6 +95,11 @@ public class UserModule {
 
     @Provides
     DetailHistoryPresenter getDetailHistoryPresenter(DetailHistoryPresenterImpl presenter) {
+        return presenter;
+    }
+
+    @Provides
+    LogoutPresenter logoutPresenter(LogoutPresenterImpl presenter) {
         return presenter;
     }
 

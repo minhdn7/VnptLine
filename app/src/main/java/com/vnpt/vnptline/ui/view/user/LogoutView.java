@@ -11,9 +11,8 @@ public interface LogoutView extends View {
 
     void onLogoutSuccess(CommonResponse response);
 
+    void onLogoutFailed(String message);
 
-    void onLoginFailed(String message);
-
-    void onLoginError(Throwable e);
+    void onLogoutError(Throwable e);
 
 }

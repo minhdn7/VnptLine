@@ -5,6 +5,7 @@ import com.vnpt.vnptline.domain.model.pojo.request.user.DanhSachThongBaoRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.DetailHistoryRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.HistoryRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.LoginAccountRequest;
+import com.vnpt.vnptline.domain.model.pojo.request.user.LogoutRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.OTPRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.RegisterUserRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.user.VerifyOTPRequest;
@@ -77,6 +78,11 @@ public interface UserApi {
     @POST(ServiceUrl.CHI_TIET_LICH_SU)
     public Observable<Response<DetailHistoryResponse>> getDetailHistory(@Header("token") String token,
                                                                         @Body DetailHistoryRequest request);
+    // end
 
+    // logout
+    @POST(ServiceUrl.LOGOUT_USER)
+    public Observable<Response<CommonResponse>> logout(@Header("token") String token,
+                                                                        @Body LogoutRequest request);
     // end
 }
