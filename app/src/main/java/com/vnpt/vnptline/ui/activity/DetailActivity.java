@@ -45,6 +45,7 @@ import com.vnpt.vnptline.ui.view.hotel.DetailHotelView;
 import com.vnpt.vnptline.ui.view.hotel.RoomHotelView;
 import com.willy.ratingbar.ScaleRatingBar;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -235,7 +236,9 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
                 scrollView.fullScroll(ScrollView.FOCUS_DOWN);
                 break;
             case R.id.viewBinhLuan:
-                startActivity(new Intent(this, BinhLuanActivity.class));
+                Intent intent = new Intent(this, BinhLuanActivity.class);
+                intent.putExtra("ID_HOTEL", idNhaNghi);
+                startActivity(intent);
                 break;
             case R.id.viewXemChiTiet:
                 if (isXemChiTietClicked) {

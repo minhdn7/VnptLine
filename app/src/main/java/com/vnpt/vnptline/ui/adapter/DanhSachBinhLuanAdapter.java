@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.vnpt.vnptline.R;
 import com.vnpt.vnptline.domain.model.pojo.response.DanhSachBinhLuanResponse;
+import com.vnpt.vnptline.domain.model.pojo.response.hotel.FindCommentHotelResponse;
+import com.vnpt.vnptline.domain.model.pojo.response.hotel.FindCommentRating;
+import com.willy.ratingbar.ScaleRatingBar;
 
 import java.util.List;
 
@@ -21,12 +24,12 @@ import java.util.List;
  * Created by MinhDN on 24/1/2018.
  */
 
-public class DanhSachBinhLuanAdapter extends ArrayAdapter<DanhSachBinhLuanResponse> {
+public class DanhSachBinhLuanAdapter extends ArrayAdapter<FindCommentRating> {
     private Context context;
     private int resource;
-    private List<DanhSachBinhLuanResponse> objects;
+    private List<FindCommentRating> objects;
 
-    public DanhSachBinhLuanAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<DanhSachBinhLuanResponse> objects) {
+    public DanhSachBinhLuanAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<FindCommentRating> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
@@ -51,10 +54,10 @@ public class DanhSachBinhLuanAdapter extends ArrayAdapter<DanhSachBinhLuanRespon
             holder = (DanhSachBinhLuanAdapter.ViewHolder) convertView.getTag();
         }
         try {
-//            holder.txtUser.setText(getItem(position).getAccount());
-//            holder.txtTieuDe.setText(getItem(position).getTieuDe());
-//            holder.txtNoiDung.setText(getItem(position).getNoiDung());
-//            holder.txtThoiGian.setText(getItem(position).getThoiGian());
+            holder.txtUser.setText(getItem(position).getName());
+            holder.txtNoiDung.setText(getItem(position).getComment());
+            holder.txtThoiGian.setText(getItem(position).getRatingDate());
+            holder.ratingBar.setRating(getItem(position).getRate());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,12 +66,12 @@ public class DanhSachBinhLuanAdapter extends ArrayAdapter<DanhSachBinhLuanRespon
 
     private class ViewHolder {
         TextView txtUser, txtTieuDe, txtNoiDung, txtThoiGian;
-
+        ScaleRatingBar ratingBar;
         public ViewHolder(View view) {
             txtUser = (TextView) view.findViewById(R.id.txtUser);
-            txtTieuDe = (TextView) view.findViewById(R.id.txtTieuDe);
             txtNoiDung = (TextView) view.findViewById(R.id.txtNoiDung);
             txtThoiGian = (TextView) view.findViewById(R.id.txtThoiGian);
+            ratingBar = (ScaleRatingBar) view.findViewById(R.id.ratingBar);
 
         }
 

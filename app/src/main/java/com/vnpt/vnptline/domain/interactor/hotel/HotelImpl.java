@@ -1,8 +1,10 @@
 package com.vnpt.vnptline.domain.interactor.hotel;
 
 import com.vnpt.vnptline.domain.model.pojo.request.hotel.BookingRoomRequest;
+import com.vnpt.vnptline.domain.model.pojo.request.hotel.FindCommentHotelRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.hotel.SearchHotelRequest;
 
+import com.vnpt.vnptline.domain.model.pojo.response.hotel.FindCommentHotelResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.HotelHightLight;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.BookingRoomResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.ChiTietNhaNghiResponse;
@@ -53,6 +55,11 @@ public class HotelImpl implements Hotel{
     @Override
     public Observable<Response<HotelHightLightResponse>> findHotelAdvance(String token) {
         return hotelApi.findHotelAdvence(token);
+    }
+
+    @Override
+    public Observable<Response<FindCommentHotelResponse>> findCommentHotel(String token, FindCommentHotelRequest request) {
+        return hotelApi.findCommentResponse(token, request);
     }
 
 

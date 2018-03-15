@@ -1,11 +1,13 @@
 package com.vnpt.vnptline.domain.interactor.hotel;
 
 import com.vnpt.vnptline.domain.model.pojo.request.hotel.BookingRoomRequest;
+import com.vnpt.vnptline.domain.model.pojo.request.hotel.FindCommentHotelRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.hotel.SearchHotelRequest;
 
 import retrofit2.Response;
 import rx.Observable;
 
+import com.vnpt.vnptline.domain.model.pojo.response.hotel.FindCommentHotelResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.HotelHightLight;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.BookingRoomResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.ChiTietNhaNghiResponse;
@@ -55,5 +57,11 @@ public interface Hotel {
      *
      */
     Observable<Response<HotelHightLightResponse>> findHotelAdvance(String token);
+
+    /**
+     * @param token {@link String}
+     * @param request {@link FindCommentHotelRequest}
+     */
+    Observable<Response<FindCommentHotelResponse>> findCommentHotel(String token, FindCommentHotelRequest request);
 
 }

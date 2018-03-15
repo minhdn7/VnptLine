@@ -18,12 +18,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="10"
             android:text="01656070***"
-            android:textColor="@color/md_grey_700"
+            android:textColor="@color/md_blue_700"
             android:textStyle="bold" />
 
         <com.willy.ratingbar.ScaleRatingBar
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/simpleRatingBar"
+            android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
@@ -38,15 +38,15 @@
             app:srb_stepSize="0.5"/>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:textColor="@color/md_blue_700"
-        android:id="@+id/txtTieuDe"
-        android:textSize="14sp"
-        android:textStyle="italic"
-        android:text="Không gian yên tĩnh"/>
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="6dp"-->
+        <!--android:textColor="@color/md_blue_700"-->
+        <!--android:id="@+id/txtTieuDe"-->
+        <!--android:textSize="14sp"-->
+        <!--android:textStyle="italic"-->
+        <!--android:text="Không gian yên tĩnh"/>-->
 
     <TextView
         android:layout_width="wrap_content"

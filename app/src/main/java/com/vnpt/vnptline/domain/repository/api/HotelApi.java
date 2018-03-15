@@ -1,7 +1,9 @@
 package com.vnpt.vnptline.domain.repository.api;
 
 import com.vnpt.vnptline.domain.model.pojo.request.hotel.BookingRoomRequest;
+import com.vnpt.vnptline.domain.model.pojo.request.hotel.FindCommentHotelRequest;
 import com.vnpt.vnptline.domain.model.pojo.request.hotel.SearchHotelRequest;
+import com.vnpt.vnptline.domain.model.pojo.response.hotel.FindCommentHotelResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.HotelHightLight;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.BookingRoomResponse;
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.ChiTietNhaNghiResponse;
@@ -53,5 +55,11 @@ public interface HotelApi {
     // danh sách nhà nghỉ nổi bật (trang chủ)
     @GET(ServiceUrl.LAY_HOTEL_NOI_BAT)
     public Observable<Response<HotelHightLightResponse>> findHotelAdvence(@Header("token") String token);
+    // end
+
+    // lấy danh sách comment nhà nghỉ
+    @POST(ServiceUrl.LAY_COMMENT_HOTEL)
+    public Observable<Response<FindCommentHotelResponse>> findCommentResponse(@Header("token") String token,
+                                                                              @Body FindCommentHotelRequest request);
     // end
 }
