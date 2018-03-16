@@ -18,6 +18,7 @@ public class AppDef {
     public static String TOKEN_FIREBASE = "TOKEN_FIREBASE";
     public static String USER_ID = "USER_ID";
     public static String USER_NAME = "USER_NAME";
+    public static String NAME = "NAME";
     public static String TOKEN_USER = "TOKEN_USER";
     public static String IS_LOGGIN = "IS_LOGGIN";
 

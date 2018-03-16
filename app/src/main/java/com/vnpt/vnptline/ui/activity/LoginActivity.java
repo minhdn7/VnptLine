@@ -85,6 +85,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         tinyDB.putBoolean(AppDef.IS_LOGGIN, true);
         tinyDB.putInt(AppDef.USER_ID, loginResult.getUserId());
         tinyDB.putString(AppDef.USER_NAME, loginResult.getUsername());
+        tinyDB.putString(AppDef.NAME, loginResult.getName());
         tinyDB.putString(AppDef.TOKEN_USER, loginResult.getTokenId());
         Integer iBooking = getIntent().getIntExtra(AppDef.BOOKING_FLOW, 0);
         if(iBooking == 1){

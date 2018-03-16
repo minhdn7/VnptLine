@@ -69,7 +69,7 @@ public class DanhSachNoiBatAdapter
         Picasso mPicasso = Picasso.with(context);
         mPicasso.setIndicatorsEnabled(true);
         mPicasso.load(danhSachNoiBatResponses.get(position).getPicture())
-                .fit()
+                .fit().centerInside()
                 .placeholder( R.drawable.progress_animation)
                 .networkPolicy(NetworkPolicy.OFFLINE)
                 .error(R.drawable.nha_nghi_11)

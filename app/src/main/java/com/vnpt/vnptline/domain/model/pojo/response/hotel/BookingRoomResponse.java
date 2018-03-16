@@ -86,4 +86,9 @@ public class BookingRoomResponse {
     @Expose
     @Getter @Setter
     public Integer userId;
+
+    @SerializedName("phone")
+    @Expose
+    @Getter @Setter
+    public String phone;
 }

@@ -40,4 +40,9 @@ public class BookingRoomRequest {
     @Expose
     @Setter @Getter
     private Integer userId;
+
+    @SerializedName("phone")
+    @Expose
+    @Setter @Getter
+    private String phone;
 }

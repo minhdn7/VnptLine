@@ -411,7 +411,8 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
                     request.setHotelId(hotelId);
                     request.setRoomTypeId(roomTypeId);
                     request.setUserId(tinyDB.getInt(AppDef.USER_ID));
-                    request.setCustomerName(tinyDB.getString(AppDef.USER_NAME));
+                    request.setPhone(tinyDB.getString(AppDef.USER_NAME));
+                    request.setCustomerName(tinyDB.getString(AppDef.NAME));
                     bookingRoomPresenter.bookingHotel(tinyDB.getString(AppDef.TOKEN_USER), request);
                     dialogBooking.dismiss();
                 } else {
@@ -428,7 +429,7 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
     public void onBookingRoomSuccess(BookingRoomResponse response) {
         hideProgressBar();
         dilogThongBao("Đặt phòng thành công", "Thông tin đặt phòng đã được gửi đến quản lí nhà nghỉ, bộ phận lễ tân sẽ liên lạc với bạn sớm nhất theo SDT: \n"
-                + "- " + response.getCustomerName() + "\n Trân trọng cảm ơn quý khách đã sửu dụng dịch vụ!", getString(R.string.dong));
+                + "- " + response.getPhone() + "\n Trân trọng cảm ơn quý khách đã sửu dụng dịch vụ!", getString(R.string.dong));
     }
 
     @Override

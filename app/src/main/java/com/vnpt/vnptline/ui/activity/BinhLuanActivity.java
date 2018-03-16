@@ -84,13 +84,6 @@ public class BinhLuanActivity extends BaseActivity implements FindCommentHotelVi
         findCommentPresenter.findCommentHotel(AppDef.TOKEN_DEV, findCommentRequest);
     }
 
-    private void addDanhSachBinhLuan() {
-//        danhSachBinhLuanResponses.add(new DanhSachBinhLuanResponse());
-//        danhSachBinhLuanResponses.add(new DanhSachBinhLuanResponse());
-//        danhSachBinhLuanResponses.add(new DanhSachBinhLuanResponse());
-        danhSachBinhLuanAdapter = new DanhSachBinhLuanAdapter(this, R.layout.item_binh_luan, danhSachBinhLuanResponses);
-        lvDanhSachBinhLuan.setAdapter(danhSachBinhLuanAdapter);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -47,4 +47,6 @@ public class LoginAccountResponse {
   @Expose
   @Getter @Setter
   private String username;
+
+
 }
