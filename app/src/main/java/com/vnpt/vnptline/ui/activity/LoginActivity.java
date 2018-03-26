@@ -69,7 +69,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 break;
             case R.id.btnDangNhap:
                 showProgressBar();
-                LoginAccountRequest request = new LoginAccountRequest(tinyDB.getString(AppDef.TOKEN_FIREBASE), txtPhone.getText().toString().trim(), txtPassword.getText().toString().trim());
+                LoginAccountRequest request = new LoginAccountRequest(tinyDB.getString(AppDef.TOKEN_FIREBASE), txtPhone.getText().toString().trim(), txtPassword.getText().toString().trim(), AppDef.DEVICE_ID);
                 loginPresenter.login(AppDef.TOKEN_DEV, request);
                 break;
         }

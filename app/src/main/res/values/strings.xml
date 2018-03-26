@@ -125,11 +125,14 @@
     <string name="maDatPhong">Mã đặt phòng:</string>
     <string name="soLuongPhongDat">Số lượng phòng đặt:</string>
     <string name="ngayDat">Ngày đặt:</string>
+    <string name="gioDat">Giờ đặt:</string>
     <string name="trangThai">Trạng thái:</string>
     <string name="maHoaDon">Mã hóa đơn:</string>
     <string name="tongTien">Tổng tiền:</string>
     <string name="ngayThanhToan">Ngày thanh toán:</string>
     <string name="hinhThucThanhToan">Hình thức thanh toán:</string>
+    <string name="chonNgayDat">Chọn ngày đặt</string>
+    <string name="chonGioDat">Chọn giờ đặt</string>
 
 
     <string name="khongTimThayKetQua">Không tìm thấy kết quả</string>

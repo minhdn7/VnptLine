@@ -2,6 +2,7 @@ package com.vnpt.vnptline.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import com.vnpt.vnptline.R;
@@ -11,13 +12,14 @@ import com.vnpt.vnptline.app.utils.StatusCode;
 import com.vnpt.vnptline.domain.model.pojo.response.TokenDevResponse;
 import com.vnpt.vnptline.ui.presenter.token.TokenDevPresenter;
 import com.vnpt.vnptline.ui.view.token.TokenDevView;
+import android.provider.Settings.Secure;
 
 import javax.inject.Inject;
 
 public class StartActivity extends BaseActivity implements TokenDevView {
     @Inject
     TokenDevPresenter tokenDevPresenter;
-
+    private String deviceId = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,8 @@ public class StartActivity extends BaseActivity implements TokenDevView {
         tokenDevPresenter.setView(this);
         tokenDevPresenter.onViewCreate();
         tokenDevPresenter.getTokenDev(AppDef.KEY_TOKEN_DEV);
+        deviceId = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
+        AppDef.DEVICE_ID = deviceId;
     }
 
     @Override

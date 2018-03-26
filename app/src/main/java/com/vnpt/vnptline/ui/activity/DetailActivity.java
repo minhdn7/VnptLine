@@ -37,6 +37,8 @@ import com.vnpt.vnptline.domain.model.pojo.response.hotel.ListRoomBookingRespons
 import com.vnpt.vnptline.domain.model.pojo.response.hotel.RoomHightLight;
 import com.vnpt.vnptline.ui.adapter.DanhSachPhongAdapter;
 import com.vnpt.vnptline.ui.adapter.PhongNoiBatAdapter;
+import com.vnpt.vnptline.ui.fragment.DatePickerFragment;
+import com.vnpt.vnptline.ui.fragment.TimePickerFragment;
 import com.vnpt.vnptline.ui.presenter.hotel.BookingRoomPresenter;
 import com.vnpt.vnptline.ui.presenter.hotel.DetailHotelPresenter;
 import com.vnpt.vnptline.ui.presenter.hotel.RoomHotelPresenter;
@@ -45,7 +47,6 @@ import com.vnpt.vnptline.ui.view.hotel.DetailHotelView;
 import com.vnpt.vnptline.ui.view.hotel.RoomHotelView;
 import com.willy.ratingbar.ScaleRatingBar;
 
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -371,6 +372,7 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
         //
         TextView txtHeaderDialog = (TextView) dialogView.findViewById(R.id.txtHeaderDialog);
         final TextView txtNgayDat = (TextView) dialogView.findViewById(R.id.txtNgayDat);
+        final TextView txtGioDat = (TextView) dialogView.findViewById(R.id.txtGioDat);
         ImageView imgExit = (ImageView) dialogView.findViewById(R.id.imgExit);
 
         Button btnTiepTuc = (Button) dialogView.findViewById(R.id.btnTiepTuc);
@@ -380,15 +382,28 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
         btnTiepTuc.setText(sButtton);
         // get current date
         Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-        final String sDate = sdf.format(currentTime);
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm");
+        final String sDate = sdfDate.format(currentTime);
+        final String sTime = sdfTime.format(currentTime);
         txtNgayDat.setText(sDate);
+        txtGioDat.setText(sTime);
         txtNgayDat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                android.app.FragmentManager fragmentManager = getFragmentManager();
-//                DateTimePickerFragment dateTimePickerFragment = new DateTimePickerFragment(txtNgayDat);
-//                dateTimePickerFragment.show(fragmentManager, "dateTimePickerFragment");
+
+                android.app.FragmentManager fragmentManager = getFragmentManager();
+                DatePickerFragment datePickerFragment = new DatePickerFragment(txtNgayDat);
+                datePickerFragment.show(fragmentManager, "datePickerFragment");
+            }
+        });
+
+        txtGioDat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                android.app.FragmentManager fragmentManager = getFragmentManager();
+                TimePickerFragment timePickerFragment = new TimePickerFragment(txtGioDat);
+                timePickerFragment.show(fragmentManager, "timePickerFragment");
             }
         });
         // end
@@ -407,7 +422,8 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
                 if (!txtSoPhong.getText().toString().trim().equals("")) {
                     Integer iSoPhong = Integer.parseInt(txtSoPhong.getText().toString().trim());
                     request.setAmount(iSoPhong);
-                    request.setBookingDate(txtNgayDat.getText().toString().trim());
+                    String dateBooking = txtNgayDat.getText().toString().trim() + " " + txtGioDat.getText().toString().trim();
+                    request.setBookingDate(dateBooking);
                     request.setHotelId(hotelId);
                     request.setRoomTypeId(roomTypeId);
                     request.setUserId(tinyDB.getInt(AppDef.USER_ID));
@@ -464,4 +480,7 @@ public class DetailActivity extends BaseActivity implements DetailHotelView, Roo
                 .load(sb.toString())
                 .into(imgGoogleStaticMap);
     }
+
+
+
 }

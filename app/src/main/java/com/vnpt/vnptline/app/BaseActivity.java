@@ -38,6 +38,7 @@ import com.vnpt.vnptline.domain.repository.TinyDB;
 import com.vnpt.vnptline.ui.presenter.LoginPresenter;
 import com.vnpt.vnptline.ui.presenter.token.TokenDevPresenter;
 import com.vnpt.vnptline.ui.view.token.TokenDevView;
+import android.provider.Settings.Secure;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -56,6 +57,7 @@ public class BaseActivity extends AppCompatActivity implements Validator.Validat
     private KProgressHUD hud;
     private Tracker mTracker;
     public TinyDB tinyDB;
+
     @Inject
     TokenDevPresenter tokenDevPresenter;
 

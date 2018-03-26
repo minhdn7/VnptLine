@@ -22,11 +22,14 @@ public class LoginAccountRequest {
     @SerializedName("password")
     private String password;
 
+    @Getter @Setter
+    @SerializedName("deviceId")
+    private String deviceId;
 
-
-    public LoginAccountRequest(String tokenFirebase, String username, String password) {
+    public LoginAccountRequest(String tokenFirebase, String username, String password,String deviceId) {
         this.tokenFirebase = tokenFirebase;
         this.password = password;
         this.username = username;
+        this.deviceId = deviceId;
     }
 }
